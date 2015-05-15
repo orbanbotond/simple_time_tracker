@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
-
+ruby '2.2.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'pg'
 # Use SCSS for stylesheets
+gem 'bootstrap-sass', '~> 3.3.3'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -22,6 +23,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'devise', '~> 3.4'
+
+gem 'pry'
+gem 'pry-nav'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -32,7 +37,19 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :development do
+  gem 'quiet_assets'
+  gem 'spring-commands-rspec'
+  gem 'rails_layout'
+  gem 'better_errors'
+end
+
 group :development, :test do
+  gem 'rspec-rails', '~> 3.2'
+  gem 'factory_girl_rails', '~> 4.5'
+  gem 'database_cleaner', '~> 1.4'
+  gem 'capybara', '~> 2.4'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -43,3 +60,12 @@ group :development, :test do
   gem 'spring'
 end
 
+group :test do
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov', require: false
+end
+
+group :production do
+  gem 'rails_12factor'
+  # gem 'postmark-rails'
+end
