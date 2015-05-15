@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '~> 3.4'
 gem 'email_validator'
+gem 'slim', '~> 2.0'
 
 gem 'pry'
 gem 'pry-nav'
@@ -60,6 +61,11 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'guard', '~> 2.2'
+  gem 'guard-rspec',  '~> 4.5'
+  gem 'guard-bundler', '~> 2.1'
+  gem 'guard-livereload', '~> 2.4'
 end
 
 group :test do
