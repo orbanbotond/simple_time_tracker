@@ -10,6 +10,20 @@ describe User do
   context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
+
+    context 'email validation' do
+      let(:user) { build :user }
+      let(:user_with_invalid_email) { build :user, email: 'invalid.email' }
+
+      specify 'valid email' do
+        expect(user).to be_truthy
+      end
+
+      specify 'invalid email' do
+        expect(user_with_invalid_email.valid?).to be_falsy
+        expect(user_with_invalid_email.errors[:email]).to be_present
+      end
+    end
   end
 
 end
