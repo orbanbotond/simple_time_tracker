@@ -29,6 +29,7 @@ gem 'slim', '~> 2.0'
 
 gem 'pry'
 gem 'pry-nav'
+gem 'simple_form', '~> 3.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -66,6 +67,7 @@ group :development, :test do
   gem 'guard-rspec',  '~> 4.5'
   gem 'guard-bundler', '~> 2.1'
   gem 'guard-livereload', '~> 2.4'
+  gem 'guard-migrate'
 end
 
 group :test do

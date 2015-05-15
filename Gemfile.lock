@@ -117,6 +117,10 @@ GEM
       em-websocket (~> 0.5)
       guard (~> 2.8)
       multi_json (~> 1.8)
+    guard-migrate (1.2.1)
+      activerecord (>= 4.1.0)
+      guard (~> 2.3)
+      guard-compat (~> 1.1)
     guard-rspec (4.5.0)
       guard (~> 2.1)
       guard-compat (~> 1.1)
@@ -236,6 +240,9 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    simple_form (3.1.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -294,6 +301,7 @@ DEPENDENCIES
   guard (~> 2.2)
   guard-bundler (~> 2.1)
   guard-livereload (~> 2.4)
+  guard-migrate
   guard-rspec (~> 4.5)
   jbuilder (~> 2.0)
   jquery-rails
@@ -308,6 +316,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   shoulda-matchers
+  simple_form (~> 3.1)
   simplecov
   slim (~> 2.0)
   spring

@@ -26,4 +26,8 @@ describe User do
     end
   end
 
+  context 'assotiations' do
+    it { is_expected.to have_many(:tasks) }
+  end
+
 end
