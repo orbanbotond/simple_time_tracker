@@ -1,0 +1,17 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/boti/Rails/toptal_screening/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/boti/Rails/toptal_screening/app/models/user.rb": [
+        1,
+        1,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1431676538
+  }
+}
