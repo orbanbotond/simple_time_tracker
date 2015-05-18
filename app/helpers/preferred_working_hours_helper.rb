@@ -1,0 +1,2 @@
+module PreferredWorkingHoursHelper
+end

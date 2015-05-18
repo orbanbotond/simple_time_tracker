@@ -56,4 +56,6 @@ Rails.application.routes.draw do
   #   end
 
   resources :work_sessions, only: [:index, :new, :create]
+
+  resource :preferred_working_hours, except: [:new, :destroy, :show]
 end

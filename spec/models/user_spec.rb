@@ -28,6 +28,7 @@ describe User do
 
   context 'assotiations' do
     it { is_expected.to have_many(:work_sessions) }
+    it { is_expected.to have_many(:preferred_working_hours) }
   end
 
 end

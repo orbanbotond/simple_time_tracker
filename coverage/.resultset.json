@@ -13,14 +13,56 @@
         null,
         null,
         1,
+        1,
         null
       ],
       "/Users/boti/Rails/toptal_screening/app/helpers/application_helper.rb": [
         1,
         null
       ],
+      "/Users/boti/Rails/toptal_screening/app/helpers/preferred_working_hours_helper.rb": [
+        1,
+        null
+      ],
       "/Users/boti/Rails/toptal_screening/app/helpers/tasks_helper.rb": [
         1,
+        null
+      ],
+      "/Users/boti/Rails/toptal_screening/app/controllers/preferred_working_hours_controller.rb": [
+        1,
+        1,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
+        null,
+        2,
+        48,
+        2,
+        null,
+        null,
+        null,
+        2,
+        2,
+        null,
+        null
+      ],
+      "/Users/boti/Rails/toptal_screening/app/controllers/application_controller.rb": [
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        31,
+        null,
+        null,
         null
       ],
       "/Users/boti/Rails/toptal_screening/app/controllers/work_sessions_controller.rb": [
@@ -37,22 +79,6 @@
         null,
         null
       ],
-      "/Users/boti/Rails/toptal_screening/app/controllers/application_controller.rb": [
-        1,
-        null,
-        null,
-        1,
-        null,
-        1,
-        null,
-        1,
-        null,
-        1,
-        27,
-        null,
-        null,
-        null
-      ],
       "/Users/boti/Rails/toptal_screening/app/models/work_session.rb": [
         1,
         1,
@@ -61,9 +87,58 @@
         1,
         1,
         1,
+        null,
+        1,
+        42,
+        42,
+        24,
+        24,
+        null,
+        null,
+        1,
+        42,
+        42,
+        24,
+        24,
+        null,
+        null,
+        1,
+        5,
+        5,
+        10,
+        10,
+        null,
+        5,
+        9,
+        9,
+        9,
+        9,
+        null,
+        9,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/boti/Rails/toptal_screening/app/form_objects/preferred_working_hours.rb": [
+        1,
+        1,
+        null,
+        1,
+        24,
+        null,
+        null,
+        null
+      ],
+      "/Users/boti/Rails/toptal_screening/app/models/preferred_working_hour.rb": [
+        1,
+        1,
+        null,
+        1,
         null
       ]
     },
-    "timestamp": 1431944763
+    "timestamp": 1431964868
   }
 }
