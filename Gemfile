@@ -26,6 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '~> 3.4'
 gem 'email_validator'
 gem 'slim', '~> 2.0'
+gem 'inherited_resources', '~> 1.6'
 
 gem 'pry'
 gem 'pry-nav'

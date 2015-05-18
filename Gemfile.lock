@@ -125,9 +125,17 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    has_scope (0.6.0)
+      actionpack (>= 3.2, < 5)
+      activesupport (>= 3.2, < 5)
     hitimes (1.2.2)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
+    inherited_resources (1.6.0)
+      actionpack (>= 3.2, < 5)
+      has_scope (~> 0.6.0.rc)
+      railties (>= 3.2, < 5)
+      responders
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -303,6 +311,7 @@ DEPENDENCIES
   guard-livereload (~> 2.4)
   guard-migrate
   guard-rspec (~> 4.5)
+  inherited_resources (~> 1.6)
   jbuilder (~> 2.0)
   jquery-rails
   pg

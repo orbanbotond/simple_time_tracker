@@ -1,4 +1,4 @@
-class Task < ActiveRecord::Base
+class WorkSession < ActiveRecord::Base
   belongs_to :user
 
   validates :description, presence: true

@@ -1,0 +1,6 @@
+= simple_form_for @work_session do |form|
+  = form.input :description
+  = form.input :date, as: :date, html5: true
+  = form.input :start_time, as: :time, html5: true
+  = form.input :end_time, html5: true
+  = form.button :submit
