@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Creating Tasks' do
   scenario 'unsigned' do
     visit '/'
-    expect(page).to have_content("Log in")
+    expect(page).to have_content("You need to sign in")
     expect(page.current_url).to eq(new_user_session_url)
   end
 
@@ -12,7 +12,7 @@ feature 'Creating Tasks' do
     scenario 'create' do
       visit '/'
       sign_in user, user.password
-      click_on 'register a work session'
+      click_on 'Register A New Work Session', :match => :first
       fill_in 'Description', :with => 'Bootstrapping the project'
       # select_date Date.parse('2014-05-18'), from: 'work_session_date'
       # select_time Time.parse('02:20'), :from => 'work_session_start_time'
@@ -21,7 +21,7 @@ feature 'Creating Tasks' do
       fill_in 'work_session_start_time', :with => '02:20'
       fill_in 'work_session_end_time', :with => '03:40'
       click_button 'Create Work session'
-      expect(page).to have_content("Work Sessions")
+      expect(page).to have_content("Time Sheet")
       expect(page).to have_content("Work session was successfully created.")
     end
   end

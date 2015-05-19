@@ -17,6 +17,7 @@ describe WorkSession do
     it { is_expected.to validate_presence_of(:start_time) }
     it { is_expected.to validate_presence_of(:end_time) }
     it { is_expected.to validate_presence_of(:date) }
+    # TODO: should validate that the start_time is before the end_time...
   end
 
   context "methods" do
@@ -36,6 +37,14 @@ describe WorkSession do
         expect(work_session.end_time.year).to eq(date.year)
         expect(work_session.end_time.month).to eq(date.month)
         expect(work_session.end_time.day).to eq(date.day)
+      end
+    end
+    context "#duration" do
+      it { is_expected.to respond_to(:duration) }
+      let(:work_session) { create :work_session, start_time: Time.parse('00:22'), end_time: Time.parse('01:45') }
+      
+      specify 'should be 83' do
+        expect(work_session.duration).to eq(4980.0)
       end
     end
     context "#in_preferred_hour?" do

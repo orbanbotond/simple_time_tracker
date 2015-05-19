@@ -1,6 +1,8 @@
-h1 PreferredWorkingHours
+.container
 
-= simple_form_for @preferred_working_hours, url: preferred_working_hours_path, method: :put do |form|
-  -(0..23).to_a.each do |hour|
-    = form.input "preferred_hour_#{hour}", as: :boolean, label: "#{hour} - #{hour + 1}", input_html: {id: "#{hour}"}
-  = form.button :submit, 'Save'
+  h1 PreferredWorkingHours
+
+  = simple_form_for @preferred_working_hours, url: preferred_working_hours_path, method: :put do |form|
+    -(0..23).to_a.each do |hour|
+      = form.input "preferred_hour_#{hour}", as: :boolean, label: "#{hour} - #{hour + 1}", input_html: {id: "#{hour}"}
+    = form.button :submit, 'Save'

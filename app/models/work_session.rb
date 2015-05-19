@@ -20,6 +20,10 @@ class WorkSession < ActiveRecord::Base
     time.change year: date.year, month: date.month, day:date.day
   end
 
+  def duration
+    end_time - start_time
+  end
+
   def in_preferred_hour?
     preferred_hours = user.preferred_working_hours
     preferred_intervals = preferred_hours.map do |x|

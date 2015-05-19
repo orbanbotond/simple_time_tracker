@@ -1,3 +1,29 @@
-=link_to 'register a work session', new_work_session_path
-h1 Work Sessions
-p Find me in app/views/tasks/index.html.erb
+.page-header
+  h1
+    = "Time Sheet for #{current_user.name}"
+
+.text-center
+  = link_to 'Register A New Work Session', new_work_session_path
+br
+
+table.table.table-stripped.table-hover
+  thead
+    tr
+      th Description
+      th Status Of Tasks
+      th Duration
+      th Start Time
+      th End Time
+      th Created At
+  tbody
+    - collection.each do |work_session|
+      tr class="#{color(work_session)}"
+        th scope="row"= work_session.description
+        th scope="row"= work_session.in_preferred_hour? ? 'Performed in Preferred_hour' : ''
+        th scope="row"= time_ago_in_words work_session.duration.seconds.ago
+        th scope="row"= relative_time work_session.start_time
+        th scope="row"= relative_time work_session.end_time
+        th scope="row"= relative_time work_session.created_at
+
+.text-center
+  = link_to 'Register A New Work Session', new_work_session_path
