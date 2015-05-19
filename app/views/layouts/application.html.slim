@@ -6,6 +6,9 @@ html
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Toptal Screening'}"
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    - if Rails.env.development?
+      script src=asset_path('livereload.js')
+      # = javascript_include_tag 'livereload'
     = csrf_meta_tags
   body
     header
