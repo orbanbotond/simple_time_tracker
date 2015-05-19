@@ -6,6 +6,9 @@ class WorkSession < ActiveRecord::Base
   validates :start_time, presence: true
   validates :end_time, presence: true
 
+  validate :start_time_is_before_end_time
+  validate :end_time_is_not_in_the_future
+
   def start_time
     time = attributes['start_time']
     return time unless date.present?
@@ -39,6 +42,20 @@ class WorkSession < ActiveRecord::Base
       b <= end_t  && end_t <= e ||
       start_t <= b && e <= end_t
     end
+  end
 
+  private
+
+  def start_time_is_before_end_time
+    return unless start_time.present?
+    return unless end_time.present?
+
+    errors.add(:start_time, 'can not start after the task ends') if start_time > end_time
+  end
+
+  def end_time_is_not_in_the_future
+    return unless end_time.present?
+
+    errors.add(:end_time, 'end_time can\'t be in the future') if end_time > Time.zone.now
   end
 end

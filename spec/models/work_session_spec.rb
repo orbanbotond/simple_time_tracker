@@ -17,7 +17,24 @@ describe WorkSession do
     it { is_expected.to validate_presence_of(:start_time) }
     it { is_expected.to validate_presence_of(:end_time) }
     it { is_expected.to validate_presence_of(:date) }
-    # TODO: should validate that the start_time is before the end_time...
+
+    context 'validates that the start_time is before the end_time' do
+      let(:work_session) { build :work_session, start_time: Time.parse('08:00'), end_time: Time.parse('07:59') }
+
+      specify 'should be invalid and contain the proper error message' do
+        expect(work_session).to_not be_valid
+        expect(work_session.errors[:start_time]).to include('can not start after the task ends')
+      end
+    end
+
+    context "validates that the end_time is not in the future" do
+      let(:work_session) { build :work_session, start_time: Time.parse('08:00'), end_time: 2.minutes.from_now, date: Time.now }
+
+      specify 'should be invalid and contain the proper error message' do
+        expect(work_session).to_not be_valid
+        expect(work_session.errors[:end_time]).to include('end_time can\'t be in the future')
+      end
+    end
   end
 
   context "methods" do
