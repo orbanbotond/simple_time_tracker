@@ -1,5 +1,7 @@
 class WorkSessionsController < ApplicationController
   inherit_resources
+  include DisplayCase::ExhibitsHelper
+
   actions :index, :new, :create
 
   before_action :authenticate_user!
@@ -8,6 +10,12 @@ class WorkSessionsController < ApplicationController
     @work_session = WorkSession.new work_session_params
     @work_session.user = current_user
     create!
+  end
+
+  protected
+
+  def collection
+    get_collection_ivar || set_collection_ivar(exhibit(super))
   end
 
   private
