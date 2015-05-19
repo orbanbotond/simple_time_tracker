@@ -1,8 +1,16 @@
-.container
+.page-header
+  h1
+    = "PreferredWorkingHours"
 
-  h1 PreferredWorkingHours
-
-  = simple_form_for @preferred_working_hours, url: preferred_working_hours_path, method: :put do |form|
-    -(0..23).to_a.each do |hour|
-      = form.input "preferred_hour_#{hour}", as: :boolean, label: "#{hour} - #{hour + 1}", input_html: {id: "#{hour}"}
-    = form.button :submit, 'Save'
+= simple_form_for @preferred_working_hours, url: preferred_working_hours_path, method: :put, html: { method: :post, class: 'form-horizontal multiple_tags', role: 'form'}, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |form|
+  -(0..23).to_a.each do |hour|
+    .row.task
+      .col-lg-6.col-lg-offset-3.col-xs-4.col-sm-offset-3.col-sm-6
+        .input-group
+          span.input-group-addon
+            = form.check_box :"preferred_hour_#{hour}", id: "#{hour}"
+          = form.label '', for: "#{hour}", label: "#{ hour } - #{ hour + 1 }", class: 'form-control'
+  br
+  .form-group
+    .col-lg-offset-5.col-lg-2
+      = form.button :submit, 'Save', class: 'btn-block'

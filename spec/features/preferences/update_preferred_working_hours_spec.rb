@@ -3,17 +3,21 @@ require 'rails_helper'
 feature 'Update Preferred Working Hours' do
   scenario 'unsigned' do
     visit '/'
-    expect(page).to have_content("Log in")
+    expect(page).to have_content("You need to sign in")
     expect(page.current_url).to eq(new_user_session_url)
   end
 
   context 'logged in' do
-    let(:user) { create :user }
-  
-    scenario 'create' do
+    let!(:user) { create :user }
+    let!(:preferences) { create :preferred_working_hour, user: user, hour: 5}
+
+    scenario 'edit' do
       visit '/'
-      sign_in user, user.password
-      click_on 'preferences'
+      sign_in user
+      click_on "Preferences #{user.name}"
+      box = find('#5')
+
+      expect(box).to be_checked
       check('0 - 1')
       check('2 - 3')
       click_button 'Save'

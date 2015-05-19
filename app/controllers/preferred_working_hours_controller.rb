@@ -1,6 +1,12 @@
 class PreferredWorkingHoursController < ApplicationController
+
+  before_action :authenticate_user!
+
   def edit
     @preferred_working_hours = PreferredWorkingHours.new
+    current_user.preferred_working_hours.each do |hour|
+      @preferred_working_hours.send :"preferred_hour_#{hour.hour}=", true
+    end
   end
 
   def update
