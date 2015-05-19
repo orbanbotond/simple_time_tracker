@@ -4,22 +4,17 @@ class PreferredWorkingHoursController < ApplicationController
 
   def edit
     @preferred_working_hours = PreferredWorkingHours.new
-    current_user.preferred_working_hours.each do |hour|
-      @preferred_working_hours.send :"preferred_hour_#{hour.hour}=", true
-    end
+    @preferred_working_hours.load_user_data current_user
   end
 
   def update
-    current_user.preferred_working_hours.destroy_all
     @preferred_working_hours = PreferredWorkingHours.new params[:preferred_working_hours]
-
-    (0..23).to_a.each do |hour|
-      if @preferred_working_hours.send :"preferred_hour_#{hour}?"
-        current_user.preferred_working_hours.create hour: hour
-      end
+    if @preferred_working_hours.persist_user_data(current_user)
+      flash.now[:info] = 'The preferences were saved'
+    else
+      flash.now[:error] = 'Error occured saving the preferences.'
     end
 
-    flash.now[:info] = 'The preferences were saved'
     render :edit
   end
 end

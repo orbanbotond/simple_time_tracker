@@ -16,8 +16,8 @@ feature 'Update Preferred Working Hours' do
       sign_in user
       click_on "Preferences #{user.name}"
       box = find('#5')
-
       expect(box).to be_checked
+
       check('0 - 1')
       check('2 - 3')
       click_button 'Save'
