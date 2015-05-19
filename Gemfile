@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'active_attr'
 gem 'display_case'
+gem 'squeel'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

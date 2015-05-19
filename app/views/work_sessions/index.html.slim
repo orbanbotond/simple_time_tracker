@@ -6,6 +6,13 @@
   = link_to 'Register A New Work Session', new_work_session_path
 br
 
+= simple_form_for @filter, url: work_sessions_path, method: :get, as: 'filter',
+  wrapper: :inline_form,
+  html: { class: 'form-inline' } do |f|
+  = f.input :from, as: :date, html5: true, placeholder: 'From'
+  = f.input :to, as: :date, html5: true, placeholder: 'To'
+  = f.button :submit, 'Filter'
+
 table.table.table-stripped.table-hover
   thead
     tr
@@ -17,7 +24,7 @@ table.table.table-stripped.table-hover
       th Created At
   tbody
     - collection.each do |work_session|
-      tr class="#{color(work_session)}"
+      tr class="#{color(work_session)} work_session"
         th scope="row"= work_session.description
         th scope="row"= work_session.status
         th scope="row"= work_session.duration

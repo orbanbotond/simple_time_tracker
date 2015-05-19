@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :work_session do
     description "MyString"
-    start_time "2015-05-15 15:18:13"
-    end_time "2015-05-15 15:28:13"
-    date "2015-05-15"
+    start_time { 2.minutes.ago }
+    end_time { 1.minute.ago }
+    date { Time.zone.now }
     user
   end
 end
