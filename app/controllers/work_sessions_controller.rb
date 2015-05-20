@@ -6,6 +6,14 @@ class WorkSessionsController < ApplicationController
 
   before_action :authenticate_user!
 
+  def download
+    @time_sheet = current_user.work_sessions
+    html = render_to_string action: :download, layout: 'download'
+    send_data html, :filename    => "time_sheet.html",
+                    :type => 'text/html',
+                    :disposition => 'attachment'
+  end
+
   def index
     @filter = FilterWorkSessions.new filter_params
     index!

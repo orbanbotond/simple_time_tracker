@@ -6,6 +6,7 @@ describe WorkSession do
     it { is_expected.to respond_to(:start_time) }
     it { is_expected.to respond_to(:end_time) }
     it { is_expected.to respond_to(:date) }
+    it { is_expected.to respond_to(:duration) }
   end
 
   context 'assotiations' do
@@ -60,7 +61,7 @@ describe WorkSession do
       it { is_expected.to respond_to(:duration) }
       let(:work_session) { create :work_session, start_time: Time.parse('00:22'), end_time: Time.parse('01:45') }
       
-      specify 'should be 83' do
+      specify 'should be 83 minutes in seconds' do
         expect(work_session.duration).to eq(4980.0)
       end
     end

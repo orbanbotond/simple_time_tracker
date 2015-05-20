@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    meta content="width=device-width, initial-scale=1.0" name="viewport" /
+    title= content_for?(:title) ? yield(:title) : 'Toptal Screening'
+    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Toptal Screening'}"
+    link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'
+  body
+    .container
+      = yield

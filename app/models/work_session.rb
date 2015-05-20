@@ -9,6 +9,8 @@ class WorkSession < ActiveRecord::Base
   validate :start_time_is_before_end_time
   validate :end_time_is_not_in_the_future
 
+  before_save :calculate_duration
+
   def start_time
     time = attributes['start_time']
     return time unless date.present?
@@ -21,10 +23,6 @@ class WorkSession < ActiveRecord::Base
     return time unless date.present?
     return time unless time.present?
     time.change year: date.year, month: date.month, day:date.day
-  end
-
-  def duration
-    end_time - start_time
   end
 
   def in_preferred_hour?
@@ -57,5 +55,11 @@ class WorkSession < ActiveRecord::Base
     return unless end_time.present?
 
     errors.add(:end_time, 'end_time can\'t be in the future') if end_time > Time.zone.now
+  end
+
+  def calculate_duration
+    return unless start_time.present?
+    return unless end_time.present?
+    self.duration = end_time - start_time    
   end
 end
