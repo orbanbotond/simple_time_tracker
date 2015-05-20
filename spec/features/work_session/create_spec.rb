@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Creating Tasks' do
+feature 'Creating A Time Entry' do
   scenario 'unsigned' do
     visit '/'
     expect(page).to have_content("You need to sign in")
@@ -17,12 +17,12 @@ feature 'Creating Tasks' do
       # select_date Date.parse('2014-05-18'), from: 'work_session_date'
       # select_time Time.parse('02:20'), :from => 'work_session_start_time'
       # select_time Time.parse('03:40'), :from => 'work_session_end_time'
-      fill_in 'work_session_date', with: '18/05/2014'
-      fill_in 'work_session_start_time', :with => '02:20'
-      fill_in 'work_session_end_time', :with => '03:40'
-      click_button 'Create Work session'
+      fill_in 'time_input_date', with: '18/05/2014'
+      fill_in 'time_input_start_time', :with => '02:20'
+      fill_in 'time_input_end_time', :with => '03:40'
+      click_button 'Create Time input'
       expect(page).to have_content("Time Sheet")
-      expect(page).to have_content("Work session was successfully created.")
+      expect(page).to have_content("Time is saved!")
     end
   end
 end

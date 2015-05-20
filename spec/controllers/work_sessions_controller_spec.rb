@@ -33,13 +33,13 @@ describe WorkSessionsController do
         sign_in user
         get :new
         expect(response).to have_http_status(:success)
-        expect(assigns[:work_session]).to be_present
+        expect(assigns[:time_input]).to be_present
       end
     end
   end
 
   describe 'GET #create' do
-    let(:params) { { "work_session"=>{ "description"=>"tralala", "date"=>"2015-01-03", "start_time"=>"12:45", "end_time"=>"13:59" } } }
+    let(:params) { { "time_input"=>{ "description"=>"tralala", "date"=>"2015-01-03", "start_time"=>"12:45", "end_time"=>"13:59" } } }
 
     context 'unsigned' do
       it 'returns redirects' do

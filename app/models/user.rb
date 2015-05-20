@@ -9,5 +9,6 @@ class User < ActiveRecord::Base
                     email: true
 
   has_many :work_sessions
+  has_many :work_days
   has_many :preferred_working_hours
 end

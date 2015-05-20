@@ -23,7 +23,7 @@ table.table.table-stripped.table-hover
       th End Time
       th Created At
   tbody
-    - collection.each do |work_session|
+    - @work_sessions.each do |work_session|
       tr class="#{color(work_session)} work_session"
         th scope="row"= work_session.description
         th scope="row"= work_session.status

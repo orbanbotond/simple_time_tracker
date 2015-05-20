@@ -1,8 +1,8 @@
 class WorkSession < ActiveRecord::Base
   belongs_to :user
+  belongs_to :work_day
 
   validates :description, presence: true
-  validates :date, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
 
@@ -10,6 +10,8 @@ class WorkSession < ActiveRecord::Base
   validate :end_time_is_not_in_the_future
 
   before_save :calculate_duration
+
+  delegate :user, to: :work_day
 
   def start_time
     time = attributes['start_time']

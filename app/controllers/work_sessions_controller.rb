@@ -1,13 +1,24 @@
 class WorkSessionsController < ApplicationController
-  inherit_resources
   include DisplayCase::ExhibitsHelper
-
-  actions :index, :new, :create
 
   before_action :authenticate_user!
 
+  def new
+    @time_input = TimeInput.new
+  end
+
+  def create
+    @time_input = TimeInput.new work_session_params
+    work_session_manager = WorkSessionManager.new current_user, @time_input
+    if @time_input.valid? && work_session_manager.save
+      redirect_to work_sessions_path, notice: 'Time is saved!'
+    else
+      render :new
+    end
+  end
+
   def download
-    @time_sheet = current_user.work_sessions
+    @wdays = current_user.work_days.joins(:work_sessions).includes(:work_sessions).order(:date)
     html = render_to_string action: :download, layout: 'download'
     send_data html, :filename    => "time_sheet.html",
                     :type => 'text/html',
@@ -16,29 +27,17 @@ class WorkSessionsController < ApplicationController
 
   def index
     @filter = FilterWorkSessions.new filter_params
-    index!
-  end
-
-  def create
-    @work_session = WorkSession.new work_session_params
-    @work_session.user = current_user
-    create!
-  end
-
-  protected
-
-  def collection
-    c = super
+    relation = WorkSession.joins(:work_day).includes(:work_day).where{work_day.user_id == my{current_user.id}}.order{work_day.date}
     if @filter.filtering?
-      c = c.where{ (date >= my{ @filter.from }) & (date <= my{ @filter.to }) }
+      relation = relation.where{ (work_day.date >= my{ @filter.from }) & (work_day.date <= my{ @filter.to }) }
     end
-    set_collection_ivar(exhibit(c))
+    @work_sessions = exhibit(relation)
   end
 
   private
 
   def work_session_params
-    params.require(:work_session).permit(:description, :date, :start_time, :end_time)
+    params.require(:time_input).permit(:description, :date, :start_time, :end_time)
   end
 
   def filter_params

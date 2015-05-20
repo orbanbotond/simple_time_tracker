@@ -9,8 +9,12 @@ table.table.table-stripped.table-hover
       th Total Time
       th Notes
   tbody
-    - @time_sheet.each do |work_session|
+    - @wdays.each do |wday|
       tr
-        th scope="row"= work_session.date
+        th scope="row"= wday.date
+        th scope="row"= wday.duration
         th scope="row"
-        th scope="row"
+          ul
+            - wday.work_sessions.each do |work_session|
+              li=work_session.description
+

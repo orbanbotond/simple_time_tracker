@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe PreferredWorkingHour do
-
   context 'assotiations' do
     it { is_expected.to belong_to(:user) }
   end
