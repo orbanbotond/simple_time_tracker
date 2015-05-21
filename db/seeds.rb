@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+User.create name: 'guest', email: 'guest@email.com', password: 'password', password_confirmation: 'password'
+ApiKey.create token: '12345654321'

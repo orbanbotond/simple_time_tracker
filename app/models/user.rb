@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
   has_many :work_sessions
   has_many :work_days
   has_many :preferred_working_hours
+  has_many :authentication_tokens
 end

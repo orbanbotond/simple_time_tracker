@@ -60,4 +60,7 @@ Rails.application.routes.draw do
   end
 
   resource :preferred_working_hours, except: [:new, :destroy, :show]
+
+  mount API => '/'
+
 end

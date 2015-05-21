@@ -35,6 +35,11 @@ gem 'pry'
 gem 'pry-nav'
 gem 'simple_form', '~> 3.1'
 
+gem 'grape', '~> 0.11'
+gem 'grape-entity', '~> 0.4.5'
+gem 'grape-swagger', '~> 0.10'
+gem 'grape-swagger-ui', '~> 0.0.9'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -72,6 +77,8 @@ group :development, :test do
   gem 'guard-bundler', '~> 2.1'
   gem 'guard-livereload', '~> 2.4'
   gem 'guard-migrate'
+
+  gem 'grape-entity-matchers', '~> 1.0'
 end
 
 group :test do

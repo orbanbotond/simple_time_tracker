@@ -30,5 +30,6 @@ describe User do
     it { is_expected.to have_many(:work_sessions) }
     it { is_expected.to have_many(:work_days) }
     it { is_expected.to have_many(:preferred_working_hours) }
+    it { is_expected.to have_many(:authentication_tokens) }
   end
 end
