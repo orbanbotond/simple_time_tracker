@@ -18,7 +18,12 @@ class WorkSessionsController < ApplicationController
   end
 
   def download
-    @wdays = current_user.work_days.joins(:work_sessions).includes(:work_sessions).order(:date)
+    relation = current_user.work_days.joins(:work_sessions).includes(:work_sessions).order(:date)
+    @filter = FilterWorkSessions.new filter_params
+    if @filter.filtering?
+      relation = relation.where{ (work_days.date >= my{ @filter.from }) & (work_days.date <= my{ @filter.to }) }
+    end
+    @wdays = relation
     html = render_to_string action: :download, layout: 'download'
     send_data html, :filename    => "time_sheet.html",
                     :type => 'text/html',
