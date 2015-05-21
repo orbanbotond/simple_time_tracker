@@ -32,10 +32,7 @@ class WorkSessionsController < ApplicationController
 
   def index
     @filter = FilterWorkSessions.new filter_params
-    relation = WorkSession.joins(:work_day).includes(:work_day).where{work_day.user_id == my{current_user.id}}.order{work_day.date}
-    if @filter.filtering?
-      relation = relation.where{ (work_day.date >= my{ @filter.from }) & (work_day.date <= my{ @filter.to }) }
-    end
+    relation = WorkSessionQueries.new(current_user, @filter).execute
     @work_sessions = exhibit(relation)
   end
 

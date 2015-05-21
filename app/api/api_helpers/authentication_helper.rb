@@ -14,11 +14,25 @@ module ApiHelpers
       end
     end
 
+    def token_value_from_request(token_param = TOKEN_PARAM_NAME)
+      params[token_param]
+    end
+
     def current_user
+      token = AuthenticationToken.find_by_token(token_value_from_request)
+      return nil unless token.present?
+      @current_user ||= token.user
     end
 
     def signed_in?
       !!current_user
     end
+
+    def authenticate!
+      unless signed_in?
+        error!({ "error_type" => "authentication_error" }, 401)
+      end
+    end
+
   end
 end
