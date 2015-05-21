@@ -10,6 +10,7 @@ class WorkSession < ActiveRecord::Base
   validate :end_time_is_not_in_the_future
 
   before_save :calculate_duration
+  after_save :recalculate_workdays_duration
 
   delegate :user, to: :work_day
 
@@ -63,5 +64,9 @@ class WorkSession < ActiveRecord::Base
     return unless start_time.present?
     return unless end_time.present?
     self.duration = end_time - start_time    
+  end
+
+  def recalculate_workdays_duration
+    work_day.recalculate_duration
   end
 end

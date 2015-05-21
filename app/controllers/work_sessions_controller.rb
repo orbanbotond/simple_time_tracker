@@ -23,7 +23,7 @@ class WorkSessionsController < ApplicationController
     if @filter.filtering?
       relation = relation.where{ (work_days.date >= my{ @filter.from }) & (work_days.date <= my{ @filter.to }) }
     end
-    @wdays = relation
+    @wdays = exhibit(relation)
     html = render_to_string action: :download, layout: 'download'
     send_data html, :filename    => "time_sheet.html",
                     :type => 'text/html',
