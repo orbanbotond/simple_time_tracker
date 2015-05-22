@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521115253) do
+ActiveRecord::Schema.define(version: 20150522152449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,16 +73,12 @@ ActiveRecord::Schema.define(version: 20150521115253) do
     t.time     "start_time"
     t.time     "end_time"
     t.date     "date"
-    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "duration"
     t.integer  "work_day_id"
   end
 
-  add_index "work_sessions", ["user_id"], name: "index_work_sessions_on_user_id", using: :btree
-
   add_foreign_key "authentication_tokens", "users"
   add_foreign_key "preferred_working_hours", "users"
-  add_foreign_key "work_sessions", "users"
 end
