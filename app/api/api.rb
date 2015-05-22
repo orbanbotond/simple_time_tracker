@@ -27,6 +27,7 @@ class API < Grape::API
   mount TimeSheet::Ping
   mount TimeSheet::PingProtected
   mount TimeSheet::Login
+  mount TimeSheet::SignupApi
   mount TimeSheet::WorkSessionApi
   mount TimeSheet::UserPreferencesApi
 
