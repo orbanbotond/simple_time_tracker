@@ -20,6 +20,7 @@ describe '/api/work_session' do
 
     context 'invalid params' do
       it_behaves_like 'unauthenticated'
+      it_behaves_like 'auditable created'
     end
 
     context 'valid params' do
@@ -56,6 +57,77 @@ describe '/api/work_session' do
   end
 
   describe 'POST /work_sessions' do
+    let!(:authentication_token) { create :authentication_token }
+    let(:user) { authentication_token.user }
+    let(:date) { '02/03/2015' }
+    let(:time_start) { '08:14' }
+    let(:time_end) { '08:39' }
+    let(:description) { 'Implementing the Time Reporting App' }
+    let(:original_params) { { token: authentication_token.token, date: date, start_time: time_start, end_time: time_end, description: description } }
+    let(:params) { original_params }
 
+    def api_call *params
+      post '/api/work_sessions', *params
+    end
+
+    it_behaves_like 'restricted for developers'
+
+    context 'invalid params' do
+      context 'date is missing' do
+        let(:params) { original_params.except(:date) }
+
+        it_behaves_like '400'
+        it_behaves_like 'json result'
+        it_behaves_like 'auditable created'
+        it_behaves_like 'contains error code', ErrorCodes::BAD_PARAMS
+        it_behaves_like 'contains error msg', 'date is missing'
+      end
+
+      context 'description is missing' do
+        let(:params) { original_params.except(:description) }
+
+        it_behaves_like '400'
+        it_behaves_like 'json result'
+        it_behaves_like 'auditable created'
+        it_behaves_like 'contains error code', ErrorCodes::BAD_PARAMS
+        it_behaves_like 'contains error msg', 'description is missing'
+      end
+
+      context 'stat time is missing' do
+        let(:params) { original_params.except(:start_time) }
+
+        it_behaves_like '400'
+        it_behaves_like 'json result'
+        it_behaves_like 'auditable created'
+        it_behaves_like 'contains error code', ErrorCodes::BAD_PARAMS
+        it_behaves_like 'contains error msg', 'start_time is missing'
+      end
+
+      context 'end time is missing' do
+        let(:params) { original_params.except(:end_time) }
+
+        it_behaves_like '400'
+        it_behaves_like 'json result'
+        it_behaves_like 'auditable created'
+        it_behaves_like 'contains error code', ErrorCodes::BAD_PARAMS
+        it_behaves_like 'contains error msg', 'end_time is missing'
+      end
+    end
+
+    context 'valid params' do
+      it_behaves_like '201'
+      it_behaves_like 'json result'
+
+      specify 'creates a work_session' do
+        expect do
+          api_call params, developer_header
+        end.to change { WorkSession.count }.by(1)
+        expect(user.work_days.last.work_sessions.count).to eq(1)
+      end
+      specify 'the work session belongs to the user' do
+        api_call params, developer_header        
+        expect(WorkSession.last.user).to eq(user)
+      end
+    end
   end
 end

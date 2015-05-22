@@ -12,8 +12,8 @@ module TimeSheet
 
       desc 'Listing a Time Sheet'
       params do
-        optional :from, type: Date, desc: "The start date part of the filter. In format: 'dd/mm/yyy'"
-        optional :to, type: Date, desc: "The end date part of the filter. In format: 'dd/mm/yyy'"
+        optional :from, type: Date, desc: "The start date part of the filter. Format: 'dd/mm/yyyy'"
+        optional :to, type: Date, desc: "The end date part of the filter. Format: 'dd/mm/yyyy'"
       end
       get do
         filter = FilterWorkSessions.new params.slice(:from, :to)
@@ -23,8 +23,22 @@ module TimeSheet
 
       desc 'Post a Work Entry'
       params do
+        requires :description, type: String, desc: "The descriptino of the work session"
+        requires :date, type: String, desc: "The date of the work session. Format: 'dd/mm/yyyy'"
+        requires :start_time, type: String, desc: "The start_time of work session. Format: 'hh:mm'"
+        requires :end_time, type: String, desc: "The end_time of work session. Format: 'hh:mm'"
       end
       post do
+        input = TimeInput.new params
+        manager = WorkSessionManager.new current_user, input
+        ws = manager.save
+        if ws
+          present ws, with: Entities::WorkSessionEntity
+        else
+          error_code = ErrorCodes::BAD_PARAMS
+          error_msg = input.errors.to_s
+          error!({ 'error_msg' => error_msg, 'error_code' => error_code }, 400)
+        end
       end
     end
   end

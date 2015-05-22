@@ -56,3 +56,10 @@ RSpec.shared_examples 'contains error code' do |code|
     expect(json['error_code']).to eq(code)
   end
 end
+RSpec.shared_examples 'contains error msg' do |msg|
+  specify "error msg is #{msg}" do
+    api_call params, developer_header
+    json = JSON.parse(response.body)
+    expect(json['error_msg']).to eq(msg)
+  end
+end

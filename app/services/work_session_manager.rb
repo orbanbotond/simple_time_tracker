@@ -1,5 +1,4 @@
 class WorkSessionManager
-
   attr_reader :user, :time_input
 
   def initialize(user, time_input)
@@ -13,5 +12,6 @@ class WorkSessionManager
       work_day.user = user
     end
     wd.work_sessions.create time_input.attributes.slice('start_time', 'end_time', 'description')
+    #TODO relay the errors from the model to the form_object... in case the save didn't work
   end
 end

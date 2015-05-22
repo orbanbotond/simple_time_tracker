@@ -23,6 +23,7 @@ describe '/api/login' do
       it_behaves_like 'auditable created'
 
       it_behaves_like 'contains error code', ErrorCodes::BAD_PARAMS
+      it_behaves_like 'contains error msg', 'Bad Authentication Parameters'
     end
 
     context 'valid params' do

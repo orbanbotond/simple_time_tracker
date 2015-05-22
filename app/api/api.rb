@@ -11,13 +11,12 @@ class API < Grape::API
     # LogApiCall.new({env: env, level: :error, status: 500, backtrace: "Grape::Exceptions::ValidationErrors: #{e.to_json}"}).execute
     rack_response({
       status: e.status,
-      message: e.message,
+      error_msg: e.message,
       error_code: ErrorCodes::BAD_PARAMS
     }.to_json, 400)
   end
 
   rescue_from :all do |e|
-    binding.pry
     # LogApiCall.new({env: env, level: :error, status: 500}).execute
     # binding.pry unless Rails.env.production?
     # Rails.logger.error e.message
