@@ -28,7 +28,7 @@ class API < Grape::API
   mount TimeSheet::PingProtected
   mount TimeSheet::Login
   mount TimeSheet::WorkSessionApi
-  # mount TimeSheet::Preferences
+  mount TimeSheet::UserPreferencesApi
 
   add_swagger_documentation
 end
