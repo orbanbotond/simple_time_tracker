@@ -4,7 +4,6 @@ module TimeSheet
     before { restrict_access_to_developers }
 
     format :json
-    prefix 'api'
 
     desc 'End-points for the Signup'
     namespace :sign_up do

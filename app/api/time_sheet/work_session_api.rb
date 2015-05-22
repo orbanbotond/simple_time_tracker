@@ -5,7 +5,6 @@ module TimeSheet
     before { authenticate! }
 
     format :json
-    prefix 'api'
 
     desc 'End point for the Work Sessions'
     namespace :work_sessions do

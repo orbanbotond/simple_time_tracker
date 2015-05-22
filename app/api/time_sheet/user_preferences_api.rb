@@ -5,7 +5,6 @@ module TimeSheet
     before { authenticate! }
 
     format :json
-    prefix 'api'
 
     desc 'End point for the Preferences'
     namespace :preferences do
