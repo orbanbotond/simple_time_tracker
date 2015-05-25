@@ -63,4 +63,9 @@ Rails.application.routes.draw do
 
   mount API => '/'
 
+  get 'admin', to: 'admin/dashboard#index', as: :admin_root
+
+  namespace :admin do
+    resources :users
+  end
 end

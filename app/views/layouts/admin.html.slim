@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Toptal Screening Admin
+    meta content=(content_for?(:description) ? yield(:description) : "Toptal Screening Admin") name="description" 
+    = favicon_link_tag "favicon.png"
+    == stylesheet_link_tag "admin", :media => "all"
+    == javascript_include_tag "admin"
+    == csrf_meta_tags
+    - if Rails.env == 'development'
+      script src=asset_path('livereload.js?snipver=1')
+  body.admin_ui
+    #navbar.navbar.navbar-default
+      .navbar-container
+    .main-container.container-fluid
+      - if signed_in?
+        = render 'layouts/admin_navigation'
+      .main-content
+        .page-content
+          .page-header.position-relative
+            h1
+              = yield :page_header
+          .row-fluid
+            .col-xl-12.col-xs-12
+              = render 'shared/messages'
+              = yield
+  = yield :scripts

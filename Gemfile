@@ -30,6 +30,7 @@ gem 'devise', '~> 3.4'
 gem 'email_validator'
 gem 'slim', '~> 2.0'
 gem 'inherited_resources', '~> 1.6'
+gem 'pundit'
 
 gem 'pry'
 gem 'pry-nav'
@@ -39,6 +40,8 @@ gem 'grape', '~> 0.11'
 gem 'grape-entity', '~> 0.4.5'
 gem 'grape-swagger', '~> 0.10'
 gem 'grape-swagger-ui', '~> 0.0.9'
+gem 'rolify', '~> 4.0'
+gem 'will_paginate', '~> 3.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

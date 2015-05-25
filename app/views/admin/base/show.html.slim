@@ -1,0 +1,13 @@
+- content_for :page_header, "New #{resource_class.to_s.singularize}"
+
+table.table
+  tbody
+    - attrs_for_form.each do |attr|
+      tr
+        td= attr
+        td
+          - attr_value  = resource.send attr
+          = attr_value
+
+= link_to "Edit", [:edit, :admin, resource], class: 'view-more pull-left'
+= link_to "Back to #{resource_class.to_s.pluralize}", [:admin, resource_class], class: 'view-more pull-right'
