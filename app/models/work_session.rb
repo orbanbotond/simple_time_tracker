@@ -1,31 +1,10 @@
 class WorkSession < ActiveRecord::Base
   belongs_to :work_day
 
-  validates :description, presence: true
-  validates :start_time, presence: true
-  validates :end_time, presence: true
-
-  validate :start_time_is_before_end_time
-  validate :end_time_is_not_in_the_future
-
   before_save :calculate_duration
   after_save :recalculate_workdays_duration
 
   delegate :user, to: :work_day
-
-  def start_time
-    time = attributes['start_time']
-    return time unless date.present?
-    return time unless time.present?
-    time.change year: date.year, month: date.month, day:date.day
-  end
-
-  def end_time
-    time = attributes['end_time']
-    return time unless date.present?
-    return time unless time.present?
-    time.change year: date.year, month: date.month, day:date.day
-  end
 
   def in_preferred_hour?
     preferred_hours = user.preferred_working_hours
@@ -45,19 +24,6 @@ class WorkSession < ActiveRecord::Base
   end
 
   private
-
-  def start_time_is_before_end_time
-    return unless start_time.present?
-    return unless end_time.present?
-
-    errors.add(:start_time, 'can not start after the task ends') if start_time > end_time
-  end
-
-  def end_time_is_not_in_the_future
-    return unless end_time.present?
-
-    errors.add(:end_time, 'end_time can\'t be in the future') if end_time > Time.zone.now
-  end
 
   def calculate_duration
     return unless start_time.present?

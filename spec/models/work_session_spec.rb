@@ -13,49 +13,12 @@ describe WorkSession do
    it { is_expected.to belong_to(:work_day) }
   end
 
-  context 'validations' do
-    it { is_expected.to validate_presence_of(:description) }
-    it { is_expected.to validate_presence_of(:start_time) }
-    it { is_expected.to validate_presence_of(:end_time) }
-
-    context 'validates that the start_time is before the end_time' do
-      let(:work_session) { build :work_session, start_time: Time.parse('08:00'), end_time: Time.parse('07:59') }
-
-      specify 'should be invalid and contain the proper error message' do
-        expect(work_session).to_not be_valid
-        expect(work_session.errors[:start_time]).to include('can not start after the task ends')
-      end
-    end
-
-    context 'validates that the end_time is not in the future' do
-      let(:work_session) { build :work_session, start_time: Time.parse('08:00'), end_time: 2.minutes.from_now, date: Time.now }
-
-      specify 'should be invalid and contain the proper error message' do
-        expect(work_session).to_not be_valid
-        expect(work_session.errors[:end_time]).to include('end_time can\'t be in the future')
-      end
-    end
-  end
-
   context 'methods' do
     let(:start_time) { Time.parse('02:20') }
     let(:end_time) { Time.parse('03:40') }
     let(:date) { Date.parse('2014-05-18') }
     let(:work_session) { build :work_session, start_time: start_time, end_time: end_time, date: date }
-    context '#start_time' do
-      specify 'returns the year month day set in date' do
-        expect(work_session.start_time.year).to eq(date.year)
-        expect(work_session.start_time.month).to eq(date.month)
-        expect(work_session.start_time.day).to eq(date.day)
-      end
-    end
-    context '#end_time' do
-      specify 'returns the year month day set in date' do
-        expect(work_session.end_time.year).to eq(date.year)
-        expect(work_session.end_time.month).to eq(date.month)
-        expect(work_session.end_time.day).to eq(date.day)
-      end
-    end
+
     context "#duration" do
       it { is_expected.to respond_to(:duration) }
       let(:work_session) { create :work_session, start_time: Time.parse('00:22'), end_time: Time.parse('01:45') }
@@ -64,6 +27,7 @@ describe WorkSession do
         expect(work_session.duration).to eq(4980.0)
       end
     end
+
     context '#in_preferred_hour?' do
       it { is_expected.to respond_to(:in_preferred_hour?) }
       let!(:user) { create :user}

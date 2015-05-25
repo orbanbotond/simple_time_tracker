@@ -7,7 +7,7 @@ class WorkSessionManager
   end
 
   def save
-    wd = WorkDay.find_or_create_by date: Date.parse(time_input.date) do |work_day|
+    wd = WorkDay.find_or_create_by date: time_input.date do |work_day|
       work_day.duration = 0
       work_day.user = user
     end
