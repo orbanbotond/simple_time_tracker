@@ -8,6 +8,53 @@ describe WorkDay do
 
   context 'validations' do
     it { is_expected.to validate_presence_of(:duration) }
+    it { is_expected.to validate_presence_of(:date) }
+
+    context 'validates that the date is not in the future' do
+      let(:work_day) { WorkDay.new date: 2.days.from_now }
+      let(:the_object) { work_day }
+
+      it_behaves_like 'date can not be in the future'
+    end
+
+    context 'validates that there is not another saved day belonging to the same user with the current date' do
+      let!(:work_day) { create :work_day, date: 2.days.ago }
+      let!(:work_day_) { create :work_day, date: 1.days.ago }
+
+      context 'negative case' do
+        context 'for an new record' do
+          let(:subject) { build :work_day, date: 2.days.ago, user: work_day.user }
+
+          it { is_expected.to_not be_valid }
+
+          specify 'proper error message is added for the date field' do
+            subject.valid?
+            expect(subject.errors[:date]).to include('there is a work day on that date belonging to the same user')
+          end
+        end
+
+        context 'validating an already saved object' do
+          let(:subject) { create :work_day, date: 2.days.ago, user: work_day_.user }
+
+          specify 'proper error message is added for the date field' do
+            subject.date = 1.days.ago
+            expect(subject).to_not be_valid
+            expect(subject.errors[:date]).to include('there is a work day on that date belonging to the same user')
+          end
+        end
+      end
+
+      context 'positive case' do
+        context 'validating as new object' do
+          let(:subject) { build :work_day, date: 2.days.ago }
+          it { is_expected.to be_valid }
+        end
+        context 'validating as saved object' do
+          let(:subject) { create :work_day, date: 2.days.ago }
+          it { is_expected.to be_valid }
+        end
+      end
+    end
   end
 
   context 'assotiations' do

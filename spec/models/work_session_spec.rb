@@ -13,6 +13,22 @@ describe WorkSession do
    it { is_expected.to belong_to(:work_day) }
   end
 
+  context 'validations' do
+    context 'validates that the end_time is not in the future' do
+      let(:work_session) { WorkSession.new end_time: 2.days.from_now }
+      let(:the_object) { work_session }
+
+      it_behaves_like 'end_time is not in the future'
+    end
+
+    context 'the start_time is before the end_time' do
+      let(:work_session) { WorkSession.new start_time: 2.minutes.ago, end_time: 4.minutes.ago }
+      let(:the_object) { work_session }
+
+      it_behaves_like 'the start_time is before the end_time'
+    end
+  end
+
   context 'methods' do
     let(:start_time) { Time.parse('02:20') }
     let(:end_time) { Time.parse('03:40') }

@@ -1,4 +1,6 @@
 class WorkSession < ActiveRecord::Base
+  include StartTimeEndTimeValidations
+
   belongs_to :work_day
 
   before_save :calculate_duration
