@@ -13,6 +13,7 @@ class TimeInput
 
   validate :start_time_is_before_end_time
   validate :end_time_is_not_in_the_future
+  validate :date_is_not_in_the_future
 
   def start_time_is_before_end_time
     return unless start_time.present?
@@ -48,6 +49,12 @@ class TimeInput
     return unless end_time.present?
 
     errors.add(:end_time, 'end_time can\'t be in the future') if end_time > Time.zone.now
+  end
+
+  def date_is_not_in_the_future
+    return unless date.present?
+
+    errors.add(:date, 'date can\'t be in the future') if date > Time.zone.now
   end
 
 end

@@ -59,5 +59,14 @@ describe TimeInput do
         expect(time_input.errors[:end_time]).to include('end_time can\'t be in the future')
       end
     end
+
+    context 'validates that the date is not in the future' do
+      let(:time_input) { TimeInput.new start_time: '08:00', end_time: '08:45', description: 'Lorem', date: 2.days.from_now }
+
+      specify 'should be invalid and contain the proper error message' do
+        expect(time_input).to_not be_valid
+        expect(time_input.errors[:date]).to include('date can\'t be in the future')
+      end
+    end
   end
 end
