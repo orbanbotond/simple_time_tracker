@@ -27,6 +27,41 @@ describe WorkSession do
 
       it_behaves_like 'the start_time is before the end_time'
     end
+
+    context 'validates against the overlaps' do
+      let(:work_day) { create :work_day }
+      let(:start_time_overlaps) { create :work_session, start_time: 6.minutes.ago, end_time: 4.minutes.ago, work_day: work_day }
+      let(:overlaps_1) { create :work_session, start_time: 6.minutes.ago, end_time: 1.minutes.ago, work_day: work_day }
+      let(:overlaps_2) { create :work_session, start_time: 4.minutes.ago, end_time: 3.minutes.ago, work_day: work_day }
+      let(:end_time_overlaps) { create :work_session, start_time: 3.minutes.ago, end_time: 1.minutes.ago, work_day: work_day }
+      let(:subject) { build :work_session, start_time: 5.minutes.ago, end_time: 2.minutes.ago, work_day: work_day }
+
+      specify 'start time overlaps' do
+        start_time_overlaps
+        expect(subject).to_not be_valid
+        expect(subject.errors[:start_time]).to include('there is an overlapping work session')
+      end
+
+      specify 'overlaps' do
+        overlaps_1
+        expect(subject).to_not be_valid
+        expect(subject.errors[:start_time]).to include('there is an overlapping work session')
+        expect(subject.errors[:end_time]).to include('there is an overlapping work session')
+      end
+
+      specify 'overlaps' do
+        overlaps_2
+        expect(subject).to_not be_valid
+        expect(subject.errors[:start_time]).to include('there is an overlapping work session')
+        expect(subject.errors[:end_time]).to include('there is an overlapping work session')
+      end
+
+      specify 'end time overlaps' do
+        end_time_overlaps
+        expect(subject).to_not be_valid
+        expect(subject.errors[:end_time]).to include('there is an overlapping work session')
+      end
+    end
   end
 
   context 'methods' do
