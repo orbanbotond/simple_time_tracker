@@ -1,4 +1,4 @@
-class UserPolicy < ApplicationPolicy
+class WorkDayPolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def create?

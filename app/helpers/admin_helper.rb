@@ -15,7 +15,7 @@ module AdminHelper
 
   def delete_item_link(item, attribute, *classes)
     classs = ['btn', 'btn-danger'] + classes
-    link_to 'Delete', url_for([:admin, item]), method: :delete, data: { confirm: 'Are you sure to delete?' }, class: classs.join(' ')
+    link_to 'Delete', url_for([:admin, item].flatten), method: :delete, data: { confirm: 'Are you sure to delete?' }, class: classs.join(' ')
   end
 
   def show_item_link(item, attribute)

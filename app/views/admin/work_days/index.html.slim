@@ -1,11 +1,11 @@
 -content_for :page_header, resource_class.to_s.pluralize
 
 
-= link_to "New #{resource_class.to_s.singularize}", [:new, :admin, resource_class.to_s.underscore.singularize.downcase]
+= link_to "New #{resource_class.to_s.singularize}", [:new, :admin, user, resource_class.to_s.underscore.singularize.downcase]
 
 h4 #{resource_class.to_s.singularize}
 
-table.table.table-hover.table-striped
+table.table
   thead
     tr
       -attrs_for_index.each do |attr|
@@ -19,10 +19,10 @@ table.table.table-hover.table-striped
           -attr_value = item.send attr
           -if attr_value.present?
             td
-              =link_to item.send( attr), [:edit, :admin, item]
+              =link_to item.send(attr), [:edit, :admin, user, item]
           -else
             td N/A
         td
-          =delete_item_link item, :name, :'btn-xs'
+          = delete_item_link [user, item], :name, :'btn-xs'
 
 = will_paginate collection

@@ -1,2 +1,5 @@
 - content_for :page_header, "Edit #{resource_class.to_s.singularize}"
 = render 'form'
+br
+= link_to 'Edit Hours', admin_user_work_days_path(resource)
+br

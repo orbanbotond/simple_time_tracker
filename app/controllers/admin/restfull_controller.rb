@@ -10,7 +10,6 @@ module Admin
         @collection = @collection.order(sort_sql)
       end
 
-
       @collection = @collection.paginate(:page => params[:page], :per_page => 10)
     end
 
