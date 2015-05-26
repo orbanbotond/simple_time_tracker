@@ -1,5 +1,5 @@
 class EntityStartTimeRelative < DisplayCase::Exhibit
-  include DateAtRelativeToNow
+  include TimeInDigitalFormat
 
   applicable_to :start_time
 end

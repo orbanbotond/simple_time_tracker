@@ -52,7 +52,7 @@ describe TimeInput do
     end
 
     context 'validates that the end_time is not in the future' do
-      let(:time_input) { TimeInput.new start_time: '08:00', end_time: 2.minutes.from_now, description: 'Lorem', date: '25/05/2015' }
+      let(:time_input) { TimeInput.new start_time: '08:00', end_time: 2.minutes.from_now, description: 'Lorem', date: Time.zone.now }
 
       specify 'should be invalid and contain the proper error message' do
         expect(time_input).to_not be_valid

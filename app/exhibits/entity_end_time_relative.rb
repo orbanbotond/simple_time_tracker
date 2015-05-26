@@ -1,5 +1,5 @@
 class EntityEndTimeRelative < DisplayCase::Exhibit
-  include DateAtRelativeToNow
+  include TimeInDigitalFormat
 
   applicable_to :end_time
 end

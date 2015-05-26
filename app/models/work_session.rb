@@ -28,7 +28,7 @@ class WorkSession < ActiveRecord::Base
   def calculate_duration
     return unless start_time.present?
     return unless end_time.present?
-    self.duration = end_time - start_time    
+    self.duration = end_time.to_i - start_time.to_i
   end
 
   def recalculate_workdays_duration
