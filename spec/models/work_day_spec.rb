@@ -67,9 +67,9 @@ describe WorkDay do
     let!(:work_session) { create :work_session, work_day: work_day}
 
     specify 'saving the work session adjusts the work_days duration' do
-      work_session2 = build :work_session, work_day: work_day
+      work_session2 = build :work_session, work_day: work_day, start_time: 12.minutes.ago, end_time: 11.minutes.ago
       work_session2.save
-      work_session3 = build :work_session, work_day: work_day
+      work_session3 = build :work_session, work_day: work_day, start_time: 6.minutes.ago, end_time: 5.minutes.ago
       expect do
         work_session3.save
       end.to change { work_day.duration }.by(work_session2.duration)
