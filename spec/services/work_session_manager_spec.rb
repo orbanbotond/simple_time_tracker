@@ -2,8 +2,10 @@ require 'rails_helper'
 
 describe 'WorkSessionManager' do
   let(:subject) { WorkSessionManager.new user, time_input }
+  let!(:another_user) { create :user }
   let(:user) { create :user }
   let(:work_day) { create :work_day, date: '02/05.2015', user: user }
+  let!(:work_day_for_another_user) { create :work_day, date: '02/05.2015', user: another_user }
 
   context 'first call for a specific date' do
     let(:time_input) { TimeInput.new description: 'lorem', date: '03/05.2015', start_time: '12:02', end_time: '13:05' }
