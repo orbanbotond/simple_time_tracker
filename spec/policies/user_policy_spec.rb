@@ -9,6 +9,7 @@ describe 'UserPolicy' do
     let(:record) do
       user_as_object
     end
+
     it 'authorizes' do
       expect(policy.create?).to be_truthy
     end
@@ -18,6 +19,7 @@ describe 'UserPolicy' do
     let(:record) do
       user_as_object
     end
+
     it 'authorizes' do
       expect(policy.create?).to be_truthy
     end
@@ -27,6 +29,7 @@ describe 'UserPolicy' do
     let(:record) do
       user_as_object
     end
+
     it 'authorizes' do
       expect(policy.show?).to be_truthy
     end

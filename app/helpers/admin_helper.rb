@@ -9,25 +9,9 @@ module AdminHelper
     content_for(:page_header, content)
   end
 
-  def edit_item_link(item, attribute)
-    link_to item.send(attribute).present? ? item.send(attribute): "------", url_for([:edit, :admin, item])
-  end
-
   def delete_item_link(item, attribute, *classes)
     classs = ['btn', 'btn-danger'] + classes
     link_to 'Delete', url_for([:admin, item].flatten), method: :delete, data: { confirm: 'Are you sure to delete?' }, class: classs.join(' ')
-  end
-
-  def show_item_link(item, attribute)
-    link_to item.send(attribute).present? ? item.send(attribute): "------", url_for([:admin, item])
-  end
-
-  def admin_index_path(resource_class)
-    if ActiveModel::Naming.uncountable?(resource_class)
-      [:admin, resource_class.to_s.downcase, :index]
-    else
-      [:admin, resource_class.to_s.pluralize.downcase]
-    end
   end
 
   def sortable(sortable_column, title = nil, sort_param = :sort, sort_direction_param = "#{sort_param}_direction")

@@ -1,5 +1,4 @@
--content_for :page_header, resource_class.to_s.pluralize
-
+- content_for :page_header, resource_class.to_s.pluralize
 
 = link_to "New #{resource_class.to_s.singularize}", [:new, :admin, resource_class.to_s.underscore.singularize.downcase]
 
@@ -8,21 +7,21 @@ h4 #{resource_class.to_s.singularize}
 table.table.table-hover.table-striped
   thead
     tr
-      -attrs_for_index.each do |attr|
+      - attrs_for_index.each do |attr|
         th
-          =sortable attr, attr.to_s.titleize
+          = sortable attr, attr.to_s.titleize
       th
   tbody
-    -collection.each do |item|
+    - collection.each do |item|
       tr.line
-        -attrs_for_index.each do |attr|
-          -attr_value = item.send attr
-          -if attr_value.present?
+        - attrs_for_index.each do |attr|
+          - attr_value = item.send attr
+          - if attr_value.present?
             td
-              =link_to item.send( attr), [:edit, :admin, item]
-          -else
+              = link_to item.send( attr), [:edit, :admin, item]
+          - else
             td N/A
         td
-          =delete_item_link item, :name, :'btn-xs'
+          = delete_item_link item, :name, :'btn-xs'
 
 = will_paginate collection

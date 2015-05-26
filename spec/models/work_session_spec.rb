@@ -43,15 +43,19 @@ describe WorkSession do
       specify 'the working session started in a preferred hour' do
         expect(work_session_1).to be_in_preferred_hour
       end
+
       specify 'the working session ended in a preferred hour' do
         expect(work_session_2).to be_in_preferred_hour
       end
+
       specify 'the working session is in a preferred hour' do
         expect(work_session_3).to be_in_preferred_hour
       end
+
       specify 'the working session overlaps a preferred hour' do
         expect(work_session_4).to be_in_preferred_hour
       end
+
       specify 'is not in any preferred hour' do
         expect(work_session_5).to_not be_in_preferred_hour
       end

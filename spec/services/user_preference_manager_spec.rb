@@ -19,7 +19,7 @@ describe 'UserPreferenceManager' do
     end
   end
 
-  context "#persist_user_data" do
+  context '#persist_user_data' do
     let!(:user) { create :user }
     let!(:preferred_working_hour_1) { create :preferred_working_hour, user: user, hour: 3 }
     let!(:preferred_working_hour_2) { create :preferred_working_hour, user: user, hour: 5 }
