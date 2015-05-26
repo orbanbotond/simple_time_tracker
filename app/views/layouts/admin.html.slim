@@ -8,8 +8,8 @@ html
     == stylesheet_link_tag "admin", :media => "all"
     == javascript_include_tag "admin"
     == csrf_meta_tags
-    - if Rails.env == 'development'
-      script src=asset_path('livereload.js?snipver=1')
+    - if Rails.env.development?
+      script src=asset_path('livereload.js')
   body.admin_ui
     #navbar.navbar.navbar-default
       .navbar-container

@@ -5,7 +5,7 @@ class Admin::UsersController < Admin::RestfullController
   end
 
   def attrs_for_form
-    [:email, :name, :password, :password_confirmation]
+    [:email, :name]
   end
 
 end
