@@ -1,3 +1,7 @@
 - content_for :page_header, "New #{resource_class.to_s.singularize}"
 = render 'form'
-= link_to "Back to #{resource_class.to_s.pluralize}", resource_admin_index_path(resource_class)
+
+.clearfix
+br
+.text-center
+  = link_to "Back to #{resource_class.to_s.pluralize}", resource_admin_index_path(resource_class)

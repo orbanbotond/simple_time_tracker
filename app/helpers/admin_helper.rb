@@ -25,9 +25,9 @@ module AdminHelper
 
   def resource_admin_index_path(resource_class)
     if resource_class.to_s.pluralize.downcase == resource_class.to_s.singularize.downcase
-      [:admin, resource_class.to_s.pluralize.downcase, :index]
+      [:admin, resource_class.to_s.tableize, :index]
     else
-      [:admin, resource_class.to_s.pluralize.downcase]
+      [:admin, resource_class.to_s.tableize]
     end
   end
 end
