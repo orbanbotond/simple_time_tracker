@@ -33,6 +33,7 @@ table.table.table-stripped.table-hover
         td scope="row"= work_session.end_time
         td scope="row"= work_session.created_at
         td
+          = link_to 'Edit', edit_work_session_path(work_session), class: 'btn-xs btn btn-success'
           = link_to 'Delete', work_session_path(work_session), method: :delete, data: { confirm: 'Are you sure to delete?' }, class: 'btn-xs btn btn-danger'
 
 .text-center

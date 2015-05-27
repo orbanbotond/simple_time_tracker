@@ -4,6 +4,21 @@ class WorkSessionsController < ApplicationController
 
   before_action :authenticate_user!
 
+  def edit
+    @work_session = WorkSession.find params[:id]
+    authorize @work_session
+  end
+
+  def update
+    @work_session = WorkSession.find params[:id]
+    authorize @work_session
+    if @work_session.update work_session_params
+      redirect_to work_sessions_path, notice: 'The Work Session has been updated'
+    else
+      render action: :edit
+    end
+  end
+
   def new
     @time_input = TimeInput.new
   end
@@ -16,7 +31,7 @@ class WorkSessionsController < ApplicationController
   end
 
   def create
-    @time_input = TimeInput.new work_session_params
+    @time_input = TimeInput.new time_input_params
     work_session_manager = WorkSessionManager.new current_user, @time_input
     if work_session_manager.save
       redirect_to work_sessions_path, notice: 'Time is saved!'
@@ -46,8 +61,12 @@ class WorkSessionsController < ApplicationController
 
   private
 
-  def work_session_params
+  def time_input_params
     params.require(:time_input).permit(:description, :date, :start_time, :end_time)
+  end
+
+  def work_session_params
+    params.require(:work_session).permit(:description, :start_time, :end_time, :id)
   end
 
   def filter_params
