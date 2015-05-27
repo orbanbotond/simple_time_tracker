@@ -1,10 +1,18 @@
 class WorkSessionsController < ApplicationController
   include DisplayCase::ExhibitsHelper
+  include Pundit
 
   before_action :authenticate_user!
 
   def new
     @time_input = TimeInput.new
+  end
+
+  def destroy
+    work_session = WorkSession.find params[:id]
+    authorize work_session
+    work_session.destroy
+    redirect_to work_sessions_path, notice: 'Work Session is Destroyed'
   end
 
   def create

@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  resources :work_sessions, only: [:index, :new, :create] do
+  resources :work_sessions, only: [:index, :new, :create, :destroy] do
     get :download, on: :collection
   end
 

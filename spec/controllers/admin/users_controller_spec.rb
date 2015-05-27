@@ -6,7 +6,7 @@ describe Admin::UsersController do
   end
 
   context 'methods' do
-    permitted_for_form = [:email, :name]
+    permitted_for_form = [:email, :name, {:role_ids=>[]}]
 
     specify{expect(subject.permitted_for_form).to eq permitted_for_form}
   end
