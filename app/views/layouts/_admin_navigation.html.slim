@@ -1,6 +1,4 @@
-#sidebar
-  nav
-    ul
-      = menu_item 'Dashboard', admin_root_path,'i-dash', {:'data-no-turbolink'=>'true'}
-      
-      = menu_item 'Users', admin_users_path, 'i-users'
+ul.nav.nav-sidebar
+  = menu_item 'Dashboard', admin_root_path,'i-dash', {:'data-no-turbolink'=>'true'}        
+  = menu_item 'Users', admin_users_path, 'i-users'
+  / # = menu_item 'Api Keys', admin_users_path, 'i-users'

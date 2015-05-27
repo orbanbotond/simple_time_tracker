@@ -1,13 +1,15 @@
-= simple_form_for resource, url: [:admin, resource], html: {class: 'form-horizontal multiple_tags', role: 'form'}, defaults: { label_html: { class: 'col-lg-2' }, input_html: { class: 'form-control'} } do |form|
+.col-lg-8.col-lg-offset-2
+  = simple_form_for resource, url: [:admin, resource], html: {class: 'form-horizontal multiple_tags', role: 'form'}, defaults: { label_html: { class: 'col-lg-2' }, input_html: { class: 'form-control'} } do |form|
 
-  = form.error_notification
-  - attrs_for_form.each do |attr|
-    - attr_value  = resource.send attr
-    - if form.object.class.reflect_on_all_associations.any?{|x| x.name == attr}
-      = form.association attr, input_html: {class: 'select2'}
-    -else
-      = form.input attr
+    = form.error_notification
+    - attrs_for_form.each do |attr|
+      - attr_value  = resource.send attr
+      - if form.object.class.reflect_on_all_associations.any?{|x| x.name == attr}
+        = form.association attr, input_html: {class: 'select2'}
+      -else
+        = form.input attr
 
-  = render partial: 'exceptions', locals: {form: form}
-  = button_tag :submit, class: 'btn btn-primary btn-edit btn-edit-form' do
-    | Update
+    = render partial: 'exceptions', locals: {form: form}
+    .col-lg-6.col-lg-offset-3
+      = button_tag :submit, class: 'btn btn-primary btn-edit btn-edit-form btn-block' do
+        | Update

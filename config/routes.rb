@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   get 'admin', to: 'admin/dashboard#index', as: :admin_root
 
   namespace :admin do
+    resources :api_keys
     resources :users do
       resources :work_days
     end
