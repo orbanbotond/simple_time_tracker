@@ -2,6 +2,9 @@ class TimeInput
   include ActiveAttr::Model
   include StartTimeEndTimeValidations
   include DateValidations
+  include AgainstOverlapping
+
+  attr_accessor :work_day
 
   attribute :start_time, type: DateTime
   attribute :end_time, type: DateTime

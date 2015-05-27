@@ -48,6 +48,18 @@ describe TimeInput do
       expect(TimeInput.new params.except(:date)).to_not be_valid
     end
 
+    context 'validates against the overlaps' do
+      let(:work_day) { create :work_day }
+      let(:subject) { TimeInput.new start_time: 5.minutes.ago, end_time: 2.minutes.ago, work_day: work_day }
+      let(:manager) { WorkSessionManager.new work_day.user, subject }
+
+      before do
+        manager.save
+      end
+
+      it_behaves_like 'overlapping times'
+    end
+
     context 'validates that the start_time is before the end_time' do
       let(:time_input) { TimeInput.new start_time: '08:00', end_time: '07:59', description: 'Lorem', date: '25/05/2015' }
       let(:the_object) { time_input }

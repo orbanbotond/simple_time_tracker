@@ -1,5 +1,6 @@
 class WorkSession < ActiveRecord::Base
   include StartTimeEndTimeValidations
+  include AgainstOverlapping
 
   belongs_to :work_day
 
@@ -7,8 +8,6 @@ class WorkSession < ActiveRecord::Base
   after_save :recalculate_workdays_duration
 
   delegate :user, to: :work_day
-
-  validate :against_overlapping
 
   def in_preferred_hour?
     preferred_hours = user.preferred_working_hours
@@ -38,19 +37,5 @@ class WorkSession < ActiveRecord::Base
 
   def recalculate_workdays_duration
     work_day.recalculate_duration
-  end
-
-  def against_overlapping
-    return unless start_time.present?
-    return unless end_time.present?
-    return unless work_day.present?
-
-    errors.add :start_time, 'there is an overlapping work session' if work_day.work_sessions.where{ (start_time <= my{ start_time }) & ( end_time >= my{ start_time }) }.present?
-    errors.add :end_time, 'there is an overlapping work session' if work_day.work_sessions.where{ (start_time <= my{ end_time }) & ( end_time >= my{ end_time }) }.present?
-
-    if work_day.work_sessions.where{ (start_time >= my{ start_time }) & ( end_time <= my{ end_time }) }.present?
-      errors.add :start_time, 'there is an overlapping work session'
-      errors.add :end_time, 'there is an overlapping work session'
-    end
   end
 end

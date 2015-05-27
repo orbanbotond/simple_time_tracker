@@ -10,7 +10,7 @@ class WorkSessionsController < ApplicationController
   def create
     @time_input = TimeInput.new work_session_params
     work_session_manager = WorkSessionManager.new current_user, @time_input
-    if @time_input.valid? && work_session_manager.save
+    if work_session_manager.save
       redirect_to work_sessions_path, notice: 'Time is saved!'
     else
       render :new
