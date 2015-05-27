@@ -6,11 +6,11 @@ class WorkSessionPolicy < ApplicationPolicy
   end
 
   def update?
-    user.has_role? :admin || record.work_day.user == user
+    user.has_role?( :admin) || (record.work_day.user == user)
   end
 
   def destroy?
-    user.has_role? :admin || record.work_day.user == user
+    user.has_role?( :admin) || (record.work_day.user == user)
   end
 
   def show?

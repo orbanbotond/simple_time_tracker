@@ -3,5 +3,6 @@ module Entities
     expose :duration
     expose :end_time
     expose :start_time
+    expose :id
   end
 end

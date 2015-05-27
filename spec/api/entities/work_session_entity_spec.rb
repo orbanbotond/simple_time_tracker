@@ -6,5 +6,6 @@ describe Entities::WorkSessionEntity do
     specify { expect(subject).to represent(:start_time)}
     specify { expect(subject).to represent(:end_time)}
     specify { expect(subject).to represent(:duration)}
+    specify { expect(subject).to represent(:id)}
   end
 end

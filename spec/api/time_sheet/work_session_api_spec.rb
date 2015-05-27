@@ -130,4 +130,52 @@ describe '/api/work_session' do
       end
     end
   end
+
+  describe 'DELETE /work_sessions/:id' do
+    let!(:authentication_token) { create :authentication_token }
+    let(:user) { authentication_token.user }
+    let(:work_day) { create :work_day, user: user }
+    let(:work_session) { create :work_session, work_day: work_day }
+    let(:original_params) { { token: authentication_token.token, id: work_session.id } }
+    let(:params) { original_params }
+    let(:work_session_id) { params[:id] }
+
+    def api_call *params
+      delete "/api/work_sessions/#{work_session_id}", *params
+    end
+
+    it_behaves_like 'restricted for developers'
+
+    context 'invalid params' do
+      context 'token is missing' do
+        it_behaves_like 'unauthenticated'
+      end
+
+      context 'id belongs to someone elses work_session' do
+        let(:another_user) { create :user }
+        let(:another_work_day) { create :work_day, date: 1.day.ago, user: another_user }
+        let(:another_work_session) { create :work_session, work_day: another_work_day }
+        let(:params) { original_params.merge(id: another_work_session.id) }
+
+        it_behaves_like '401'
+        it_behaves_like 'json result'
+        it_behaves_like 'auditable created'
+        it_behaves_like 'contains error code', ErrorCodes::BAD_PARAMS
+        it_behaves_like 'contains error msg', 'not enough privileges'
+      end
+    end
+
+    context 'valid params' do
+      it_behaves_like '200'
+      it_behaves_like 'json result'
+
+      specify 'removes a work_session' do
+        params
+        expect do
+          api_call params, developer_header
+        end.to change { WorkSession.count }.by(-1)
+        expect(user.work_days.last.work_sessions.count).to eq(0)
+      end
+    end
+  end
 end

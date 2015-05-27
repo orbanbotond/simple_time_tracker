@@ -1,6 +1,8 @@
 module TimeSheet
   class WorkSessionApi < Grape::API
     helpers ApiHelpers::AuthenticationHelper
+    helpers Pundit
+
     before { restrict_access_to_developers }
     before { authenticate! }
 
@@ -8,6 +10,20 @@ module TimeSheet
 
     desc 'End point for the Work Sessions'
     namespace :work_sessions do
+
+      route_param :id do
+        desc 'Delete A Work Session'
+        params do
+          requires :token, type: String, desc: 'The user authentication token'
+        end
+        delete do
+          work_session = WorkSession.find params[:id]
+          authorize work_session, :destroy?
+          work_session.destroy
+          status 200
+          { 'message' => 'The entity is deleted' }.as_json
+        end
+      end
 
       desc 'Listing a Time Sheet'
       params do

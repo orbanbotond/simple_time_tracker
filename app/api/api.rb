@@ -2,6 +2,13 @@ class API < Grape::API
 
   prefix 'api'
 
+  rescue_from Pundit::NotAuthorizedError do |e|
+    rack_response({
+      error_msg: 'not enough privileges',
+      error_code: ErrorCodes::BAD_PARAMS
+    }.to_json, 401)
+  end
+
   rescue_from ActiveRecord::RecordNotFound do |e|
     rack_response({ error_type: "not_found" }.to_json, 404)
   end
