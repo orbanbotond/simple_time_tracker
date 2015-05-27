@@ -34,6 +34,12 @@ describe WorkSession do
       let(:subject) { build :work_session, start_time: 5.minutes.ago, end_time: 2.minutes.ago, work_day: work_day }
 
       it_behaves_like 'overlapping times'
+
+      specify 'should be valid if we update the attributes' do
+        subject.save
+        subject.start_time = 6.minutes.ago
+        expect(subject).to be_valid
+      end
     end
   end
 
