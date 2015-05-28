@@ -12,6 +12,27 @@ module TimeSheet
     namespace :work_sessions do
 
       route_param :id do
+
+        desc 'Updates A Work Session'
+        params do
+          requires :token, type: String, desc: 'The user authentication token'
+          optional :description, type: String, desc: 'The user authentication token'
+          optional :start_time, type: String, desc: 'The start time. Format: HH:MM. Example: 08:12'
+          optional :end_time, type: String, desc: 'The start time. Format: HH:MM. Example: 08:12'
+        end
+        put do
+          work_session = WorkSession.find params[:id]
+          authorize work_session, :update?
+          if work_session.update ActionController::Parameters.new(params).permit(:description, :start_time, :end_time)
+            status 200
+            { 'message' => 'The entity is updated' }.as_json
+          else
+            error_code = ErrorCodes::BAD_PARAMS
+            error_msg = work_session.errors.messages
+            error!({ 'error_msg' => error_msg, 'error_code' => error_code }, 400)
+          end
+        end
+
         desc 'Delete A Work Session'
         params do
           requires :token, type: String, desc: 'The user authentication token'

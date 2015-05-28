@@ -73,6 +73,8 @@ describe '/api/work_session' do
     it_behaves_like 'restricted for developers'
 
     context 'invalid params' do
+      it_behaves_like 'unauthenticated'
+
       context 'date is missing' do
         let(:params) { original_params.except(:date) }
 
@@ -131,6 +133,67 @@ describe '/api/work_session' do
     end
   end
 
+  describe 'PUT /work_sessions/:id' do
+    let!(:authentication_token) { create :authentication_token }
+    let(:user) { authentication_token.user }
+    let(:work_day) { create :work_day, user: user }
+    let(:work_session) { create :work_session, work_day: work_day }
+    let(:original_params) { { token: authentication_token.token, id: work_session.id, start_time: '00:01', end_time: '00:02', description: 'New Modified Description' } }
+    let(:params) { original_params }
+    let(:work_session_id) { params[:id] }
+
+    def api_call *params
+      put "/api/work_sessions/#{work_session_id}", *params
+    end
+
+    it_behaves_like 'restricted for developers'
+
+    context 'invalid params' do
+      context 'token is missing' do
+        it_behaves_like 'unauthenticated'
+      end
+
+      context 'end_time is not before the start_time' do
+        let(:params) { original_params.merge(end_time: 10.minutes.ago.strftime('%H:%M'), start_time: 5.minutes.ago.strftime('%H:%M')) }
+        it_behaves_like '400'
+        it_behaves_like 'json result'
+        it_behaves_like 'contains error code', ErrorCodes::BAD_PARAMS
+
+        specify 'error msg for end_time is populated' do
+          api_call params, developer_header
+          json = JSON.parse(response.body)
+          expect(json['error_msg']['start_time']).to include('can not start after the task ends')
+        end
+      end
+    end
+
+    context 'valid params' do
+      it_behaves_like '200'
+      it_behaves_like 'json result'
+
+      specify 'updates the work_session' do
+        api_call params, developer_header
+        json = JSON.parse(response.body)
+        expect(json['message']).to eq('The entity is updated')
+      end
+
+      specify 'updates the description' do
+        api_call params, developer_header
+        expect(work_session.reload.description).to eq(params[:description])
+      end
+
+      specify 'updates the start_time' do
+        api_call params, developer_header
+        expect(work_session.reload.start_time.strftime '%H:%M').to eq(params[:start_time])
+      end
+
+      specify 'updates the end_time' do
+        api_call params, developer_header
+        expect(work_session.reload.end_time.strftime '%H:%M').to eq(params[:end_time])
+      end
+    end
+  end
+
   describe 'DELETE /work_sessions/:id' do
     let!(:authentication_token) { create :authentication_token }
     let(:user) { authentication_token.user }
@@ -168,6 +231,12 @@ describe '/api/work_session' do
     context 'valid params' do
       it_behaves_like '200'
       it_behaves_like 'json result'
+
+      specify 'updates the work_session' do
+        api_call params, developer_header
+        json = JSON.parse(response.body)
+        expect(json['message']).to eq('The entity is deleted')
+      end
 
       specify 'removes a work_session' do
         params
