@@ -2,8 +2,8 @@ doctype html
 html
   head
     meta content="width=device-width, initial-scale=1.0" name="viewport" /
-    title= content_for?(:title) ? yield(:title) : 'Toptal Screening'
-    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Toptal Screening'}"
+    title= content_for?(:title) ? yield(:title) : 'Simple Time Tracker'
+    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Simple Time Tracker'}"
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = stylesheet_link_tag    "non-responsive", media: "all"
     = javascript_include_tag 'application', 'data-turbolinks-track' => true

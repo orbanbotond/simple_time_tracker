@@ -9,12 +9,12 @@ default: &default
 
 development:
   <<: *default
-  database: toptal_screening_development
+  database: simple_time_tracker_development
 
 production:
   <<: *default
-  database: toptal_screening_production
+  database: simple_time_tracker_production
 
 test:
   <<: *default
-  database: toptal_screening_test
+  database: simple_time_tracker_test
