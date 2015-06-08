@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 10
+  username: boti
+  password:
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: simple_time_tracker_development
+
+production:
+  <<: *default
+  database: simple_time_tracker_production
+
+test:
+  <<: *default
+  database: simple_time_tracker_test
