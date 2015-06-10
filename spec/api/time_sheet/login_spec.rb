@@ -57,12 +57,7 @@ describe '/api/login' do
         it_behaves_like 'json result'
         it_behaves_like 'auditable created'
 
-        specify "returns an error message" do
-          api_call params, developer_header
-          parsed_json = JSON.parse(response.body)
-          expect(parsed_json['error_msg']).to eq('Bad Authentication Parameters')
-        end
-
+        it_behaves_like 'contains error msg', 'Bad Authentication Parameters'
         it_behaves_like 'contains error code', ErrorCodes::BAD_AUTHENTICATION_PARAMS
       end
 
